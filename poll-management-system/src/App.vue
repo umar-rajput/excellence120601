@@ -1,26 +1,63 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div id="app">
+    <nav>
+      <div class="row align-items-center navBar">
+        <div class="col-1 logo">
+          <!-- <img src="./assets/logo1.png" alt="logo"> -->
+        </div>
+        <div class="col-10">
+          <router-link to="/">Home</router-link> |
+          <router-link to="/about">About</router-link>
+        </div>
+        <div class="col-1">
+          <v-btn class="authBtn text-end">
+            Login
+          </v-btn>
+        </div>
+      </div>
+    </nav>
+    <router-view/>
+  </div>
 </template>
 
-<script>
-import HelloWorld from './components/HelloWorld.vue'
-
-export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
-</script>
-
 <style>
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
+  /* text-align: center; */
+  /* color: #2c3e50; */
+}
+.navBar {
+  padding: 5px 40px;
+}
+.logo {
+  height: 50px;
+  width: 50px;
+  margin-right: 10px;
+  background: url('./assets/logo1.png');
+  background-size: cover;
+}
+
+nav a {
+  font-weight: bold;
   color: #2c3e50;
-  margin-top: 60px;
+  padding: 0px 10px;
+  text-decoration: none;
+}
+
+nav a.router-link-exact-active {
+  /* color: #42b983; */
+  color: #4b6da0;
+}
+.authBtn{
+  color: #fff !important;
+  background: #4b6da0;
+  font-weight: bold;
 }
 </style>
