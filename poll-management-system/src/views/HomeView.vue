@@ -8,9 +8,16 @@
       </div>
       <div class="login">
         <h3>Please Login here</h3>
-        <v-btn class="authBtn" @click="dialog = true">
-          Login
-        </v-btn>
+        <v-dialog transition="dialog-bottom-transition" width="30%">
+          <template v-slot:activator="{ props }">
+            <v-btn class="authBtn" v-bind="props">Login</v-btn>
+          </template>
+          <template v-slot:default="{ isActive }">
+            <v-card class="popup">
+              <LoginForm @click="isActive.value = true"></LoginForm>
+            </v-card>
+          </template>
+        </v-dialog>
       </div>
       <div class="or">
         <hr class="hr1">
@@ -19,25 +26,17 @@
       </div>
       <div class="signup login">
         <h3>New User? SignUp here</h3>
-        <v-btn class="authBtn" @click="dialog = true">
-          SignUp
-        </v-btn>
+        <v-dialog transition="dialog-bottom-transition" width="30%">
+          <template v-slot:activator="{ props }">
+            <v-btn class="authBtn" v-bind="props">SignUp</v-btn>
+          </template>
+          <template v-slot:default="{ isActive }">
+            <v-card class="popup">
+              <SignUpForm @click="isActive.value = true"></SignUpForm>
+            </v-card>
+          </template>
+        </v-dialog>
       </div>
-
-      <v-dialog v-model="dialog" width="auto">
-        <v-card>
-          <Form></Form>
-          <!-- <v-card-text>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-            magna aliqua.
-          </v-card-text>
-          <v-card-actions>
-            <v-btn color="primary" block @click="dialog = false">Close Dialog</v-btn>
-          </v-card-actions> -->
-        </v-card>
-      </v-dialog>
-
-
     </div>
   </div>
 </template>
@@ -45,17 +44,22 @@
 <script>
 // @ is an alias to /src
 // import HelloWorld from '@/components/HelloWorld.vue'
-import Form from '../components/Form.vue'
+// import Form from '../components/Form.vue'
+import LoginForm from '../components/LoginForm.vue'
+import SignUpForm from '../components/SignUpForm.vue'
 
 export default {
   name: 'HomeView',
   components: {
     // HelloWorld
-    Form
+    // Form,
+    LoginForm,
+    SignUpForm
   },
   data() {
     return {
-      dialog: false
+      dialog: false,
+      signUp: false,
     }
   }
 }
@@ -104,5 +108,9 @@ export default {
 
 .hr1 {
   width: 7%;
+}
+
+.popup{
+  padding: 30px;
 }
 </style>
