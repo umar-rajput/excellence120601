@@ -7,7 +7,8 @@
         </div>
         <div class="col-10">
           <router-link to="/">Home</router-link> |
-          <router-link to="/about">About</router-link>
+          <router-link to="/about">About</router-link> |
+          <router-link to="/poll">Polls</router-link>
         </div>
         <div class="col-1">
           <v-btn class="authBtn text-end">

@@ -1,7 +1,7 @@
 <template>
     <div class="signup-form">
         <div class="signup-form-main">
-            <v-form validate-on="submit lazy" @submit.prevent="signUp(userName,password,role)">
+            <v-form validate-on="submit lazy" @submit.prevent="signUp()">
                 <v-text-field v-model="userName" :rules="rules" label="User name"></v-text-field>
                 <v-text-field v-model="password" type="password" :rules="rules" label="Password"></v-text-field>
                 <v-text-field v-model="role" :rules="rules" label="Role"></v-text-field>
