@@ -60,7 +60,7 @@ export default {
             }
             console.log(poll);
             // this.addPoll(poll);
-            this.listPolls()
+            this.listPolls();
             this.$emit("submit-item");
             // this.question="";
             // this.options="";

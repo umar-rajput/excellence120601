@@ -31,8 +31,11 @@
                         <li>{{ item }}</li>
                     </ul> -->
                     <!-- <p class="text-danger">{{ err }}</p> -->
-                    <v-radio-group v-for="(option, index) in value.options" v-bind:key="index">
-                        <v-radio :label="option.option" :value="index" name="radio"></v-radio>
+                    <v-radio-group v-for="(option, index) in value.options" v-bind:key="index" class="options">
+                        <v-radio :label="option.option" :value="index" name="radio">
+                        </v-radio>
+                        <i class="fa-solid fa-pen-to-square" ></i>
+                        <i class="fa-solid fa-trash" @click="deleteOption(value._id,option.option)"></i>
                         <!-- <v-radio label="Radio 2" value="2">{{ option }}</v-radio>
                             <v-radio label="Radio 3" value="3">{{ option }}</v-radio>
                             <v-radio label="Radio 4" value="4">{{ option }}</v-radio> -->
@@ -58,16 +61,16 @@ export default {
     // components: { PollCard },
     props: ['poll'],
     computed: mapGetters(['allPolls']),
-    watch: {
-        // '$store.state': {
-            // console.log("watching1....");
-            updatePollTitle() {
-                console.log("watching2....");
-                this.listPolls();
-            },
-            // immediate: true
-        // }
-    },
+    // watch: {
+    //     // '$store.state': {
+    //         // console.log("watching1....");
+    //         // updatePollTitle() {
+    //         //     console.log("watching2....");
+    //         //     this.listPolls();
+    //         // },
+    //         // immediate: true
+    //     // }
+    // },
     data() {
         return {
             // question: "",
@@ -91,7 +94,7 @@ export default {
         //         this.question="";
         //         // this.options="";
         //     },
-        ...mapActions(['deletePoll', 'updatePollTitle','listPolls']),
+        ...mapActions(['deletePoll', 'updatePollTitle','listPolls','deletePollOption']),
         // deletePollData(){
         //     console.log("delete");
         //     // this.deletePoll();
@@ -128,11 +131,21 @@ export default {
             console.log("..............");
             // this.listPolls();
         },
+        deleteOption(id,text){
+            // this.id=this.allPolls[index]._id;
+            // console.log(this.id);
+            // console.log(id,text);
+            let payload={
+                id,text
+            }
+            console.log(payload);
+            this.deletePollOption(payload);
+        }
     },
-    updated(){
-        console.log("Update...");
-        this.listPolls();
-    }
+    // updated(){
+    //     console.log("Update...");
+    //     this.listPolls();
+    // }
 }
 </script>
 
@@ -164,5 +177,10 @@ export default {
     /* background: #4b6da0; */
     background: #d32929;
     font-weight: bold;
+}
+.options::v-deep .v-selection-control-group {
+    flex-direction: row !important;
+    gap: 15px;
+    align-items: center;
 }
 </style>
