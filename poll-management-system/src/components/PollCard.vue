@@ -2,10 +2,10 @@
     <div class="poll-card">
         <v-card class="poll-card-main text-center">
             <v-card-title>
-                Something in mind?
+                Create A New Poll
             </v-card-title>
             <v-card-subtitle>
-                Use this section to add the question for the poll
+                Add the question for the poll
             </v-card-subtitle>
             <v-card-text>
                 <v-form @submit.prevent="submit">
@@ -52,7 +52,7 @@ export default {
                 this.err="You can add only 4 option"
             }
         },
-        ...mapActions(['addPoll']),
+        ...mapActions(['addPoll','listPolls']),
         submit(){
             let poll={
                 question:this.question,
@@ -60,9 +60,10 @@ export default {
             }
             console.log(poll);
             // this.addPoll(poll);
-            this.$emit("submit-item",poll);
-            this.question="";
-            this.options="";
+            this.listPolls()
+            this.$emit("submit-item");
+            // this.question="";
+            // this.options="";
         }
     },
 }
@@ -70,12 +71,7 @@ export default {
 
 <style scoped>
 .poll-card-main {
-    width: 370px;
-    border-top-left-radius: 40px;
-    border-bottom-right-radius: 40px;
     padding: 15px;
-    background: rgb(13 110 253 / 3%);
-    border-top: 3px solid rgb(75 109 160);
 }
 
 .reset {

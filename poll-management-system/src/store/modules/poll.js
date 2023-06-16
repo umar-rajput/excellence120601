@@ -1,5 +1,13 @@
 import axios from "axios";
 
+const state={
+    polls:[],
+}
+
+const getters={
+    allPolls:state=>state.polls,
+}
+
 const actions={
     async addPoll({commit},poll){
         // console.log("Checking..",poll.question,poll.options[0]);
@@ -8,12 +16,40 @@ const actions={
         console.log("result",res.data);
         commit("setPoll",res.data);
     },
-
-    // as
     
+    async listPolls({commit}){
+        let res=await axios.get(`http://65.108.77.50:3031/list_polls`);
+        console.log("result",res.data);
+        console.log(res.data.data);
+        commit("setPolls",res.data.data);
+    },
 
+    async deletePoll({commit},id){
+        let res=await axios.delete(`http://65.108.77.50:3031/delete_poll?id=${id}`);
+        console.log("result",res.data);
+        commit("removePoll",res.data);
+    },
+
+    async updatePollTitle({commit},payload){
+        let res=await axios.put(`http://65.108.77.50:3031/update_poll_title?id=${payload.id}&title=${payload.title}`);
+        console.log("result update",res.data);
+        commit("setTitle");
+        // this.useEffect(() => {
+            // Call listPolls() after updatePollTitle() has been called
+            // this.listPolls();
+        // }, [this.updatePollTitle]);
+        
+    }
+}
+
+const mutations={
+    setPolls:(state,polls)=>{state.polls=polls},
+    removePoll:(state,id)=>{state.polls.filter(polls=>polls.id!==id)},
 }
 
 export default{
-    actions
+    state,
+    getters,
+    actions,
+    mutations
 }
