@@ -12,8 +12,8 @@
                     <v-text-field v-model="question" :counter="80" :rules="nameRules" label="Enter Your Question here" required></v-text-field>
                     <div class="d-flex gap-4">
                         <v-text-field v-model="option" :rules="nameRules" label="Option" required></v-text-field>
-                        <i class="fa-solid fa-circle-plus fa-2xl mt-6 text-success"
-                            v-on:click="add"></i>
+                        <v-icon class="fa-solid fa-circle-plus fa-2xl my-5 text-success" size="x-large"
+                            v-on:click="add"></v-icon>
                     </div>
                     <ul v-for="(option,index) in options" v-bind:key="index" class="text-start">
                         <li>{{ option }}</li>
@@ -54,16 +54,20 @@ export default {
         },
         ...mapActions(['addPoll','listPolls']),
         submit(){
-            let poll={
-                question:this.question,
-                options:this.options,
+            if(this.count<2){
+                this.err="Add atleast 2 options."
+            }else{
+                let poll={
+                    question:this.question,
+                    options:this.options,
+                }
+                console.log(poll);
+                this.addPoll(poll);
+                this.listPolls();
+                this.$emit("submit-item");
+                // this.question="";
+                // this.options="";
             }
-            console.log(poll);
-            // this.addPoll(poll);
-            this.listPolls();
-            this.$emit("submit-item");
-            // this.question="";
-            // this.options="";
         }
     },
 }

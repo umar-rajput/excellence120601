@@ -44,7 +44,14 @@ const actions={
         let res=await axios.delete(`http://65.108.77.50:3031/delete_poll_option?id=${payload.id}&option_text=${payload.text}`);
         console.log("result option delete",res.data);
         commit("deleteOption");
-    }
+    },
+
+    async addPollOption({commit},payload){
+        console.log(payload.id,payload.option);
+        let res=await axios.post(`http://65.108.77.50:3031/add_new_option?id=${payload.id}&option_text=${payload.option}`);
+        console.log("result add option",res.data);
+        commit("setPoll",res.data);
+    },
 }
 
 const mutations={

@@ -8,7 +8,7 @@
             <v-card-title>
                 <div class="d-flex align-items-center justify-content-center gap-3">
                     <p class="mb-0" :id="index">{{ value.title }}</p>
-                    <i @click="updateTitle(index)" class="fa-solid fa-pen-to-square"></i>
+                    <v-icon @click="updateTitle(index)" size="x-small" class="fa-solid fa-pen-to-square"></v-icon>
                     <!-- {{ poll.question }} -->
                 </div>
                 <v-form @submit.prevent="updateT" v-if="editIndex == index" class="d-flex mt-2">
@@ -34,12 +34,19 @@
                     <v-radio-group v-for="(option, index) in value.options" v-bind:key="index" class="options">
                         <v-radio :label="option.option" :value="index" name="radio">
                         </v-radio>
-                        <i class="fa-solid fa-pen-to-square" ></i>
-                        <i class="fa-solid fa-trash" @click="deleteOption(value._id,option.option)"></i>
+                        <!-- <i class="fa-solid fa-pen-to-square" @click="addOption"></i> -->
+                        <v-icon class="fa-solid fa-trash" size="small" @click="deleteOption(value._id, option.option)"></v-icon>
                         <!-- <v-radio label="Radio 2" value="2">{{ option }}</v-radio>
                             <v-radio label="Radio 3" value="3">{{ option }}</v-radio>
                             <v-radio label="Radio 4" value="4">{{ option }}</v-radio> -->
                     </v-radio-group>
+                    <div class="d-flex gap-4 mb-2">
+                        <v-form @submit.prevent="addOpt" class="d-flex mt-2 gap-4">
+                            <v-text-field v-model="option" label="Add More Options" :rules="nameRules" style="width:250px;"
+                                v-show="clickedId==value._id"></v-text-field>
+                            <v-icon class="fa-solid fa-circle-plus my-4 text-success" size="x-large" @click="addOption(value._id,option)"></v-icon>
+                        </v-form>
+                    </div>
                     <!-- <v-btn type="submit" class="submit">Vote</v-btn> -->
                     <!-- <div class="d-flex gap-2">
                             <v-btn type="reset" class="reset">Reset</v-btn>
@@ -61,6 +68,7 @@ export default {
     // components: { PollCard },
     props: ['poll'],
     computed: mapGetters(['allPolls']),
+    // props: ['count'],
     // watch: {
     //     // '$store.state': {
     //         // console.log("watching1....");
@@ -81,6 +89,8 @@ export default {
             title: "",
             editIndex: -1,
             id: "",
+            option:"",
+            clickedId:-1,
         }
     },
     methods: {
@@ -94,7 +104,7 @@ export default {
         //         this.question="";
         //         // this.options="";
         //     },
-        ...mapActions(['deletePoll', 'updatePollTitle','listPolls','deletePollOption']),
+        ...mapActions(['deletePoll', 'updatePollTitle', 'listPolls', 'deletePollOption', 'addPollOption']),
         // deletePollData(){
         //     console.log("delete");
         //     // this.deletePoll();
@@ -131,15 +141,31 @@ export default {
             console.log("..............");
             // this.listPolls();
         },
-        deleteOption(id,text){
+        deleteOption(id, text) {
             // this.id=this.allPolls[index]._id;
             // console.log(this.id);
             // console.log(id,text);
-            let payload={
-                id,text
+            let payload = {
+                id, text
             }
             console.log(payload);
             this.deletePollOption(payload);
+        },
+        addOption(id,option) {
+            console.log("a");
+            this.clickedId=id;
+            console.log(this.clickedId);
+            console.log(id,option);
+            // this.addPollOption();
+        },
+        addOpt(){
+            let payload={
+                id:this.clickedId,
+                option:this.option,
+            }
+            console.log(payload);
+            this.addPollOption(payload);
+            this.clickedId=0;
         }
     },
     // updated(){
@@ -178,6 +204,7 @@ export default {
     background: #d32929;
     font-weight: bold;
 }
+
 .options::v-deep .v-selection-control-group {
     flex-direction: row !important;
     gap: 15px;

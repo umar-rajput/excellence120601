@@ -12,7 +12,7 @@
         </div>
         <div class="col-1">
           <v-btn class="authBtn text-end">
-            Login
+            {{buttonValue}}
           </v-btn>
         </div>
       </div>
@@ -27,6 +27,7 @@ export default {
   data() {
     return{
       // login:allUser,
+      buttonValue:"Login"
     }
   },
   // computed:mapGetters(['allUser']),
