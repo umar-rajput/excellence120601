@@ -111,6 +111,6 @@ export default {
 }
 
 .popup{
-  padding: 30px;
+  padding: 20px 30px 30px 30px;
 }
 </style>

@@ -5,13 +5,13 @@
         <div class="col-1 logo">
           <!-- <img src="./assets/logo1.png" alt="logo"> -->
         </div>
-        <div class="col-10">
+        <div class="col-9">
           <router-link to="/">Home</router-link> |
           <router-link to="/about">About</router-link> |
           <router-link to="/poll" >Polls</router-link>
         </div>
-        <div class="col-1">
-          <v-btn class="authBtn text-end">
+        <div class="col-2">
+          <v-btn class="authBtn text-end" @click="logout">
             {{buttonValue}}
           </v-btn>
         </div>
@@ -27,13 +27,20 @@ export default {
   data() {
     return{
       // login:allUser,
-      buttonValue:"Login"
+      buttonValue:"Log out"
     }
   },
   // computed:mapGetters(['allUser']),
   // updated(){
   //   console.log("...",this.allUser);
-  // }
+  // },
+  methods:{
+    logout(){
+      window.user=null;
+      localStorage.removeItem("token");
+      this.$router.push({name:'home'})
+    }
+  }
 }
 </script>
 

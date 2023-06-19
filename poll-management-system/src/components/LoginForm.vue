@@ -2,10 +2,11 @@
     <div class="login-form">
         <div class="login-form-main">
             <!-- <v-sheet max-width="300" class="mx-auto"> -->
+                <h3 class="text-center mb-5">Login</h3>
                 <v-form validate-on="submit lazy" @submit.prevent="login()">
                     <v-text-field v-model="userName" :rules="rules" label="User name"></v-text-field>
                     <v-text-field v-model="password" type="password" :rules="rules" label="Password"></v-text-field>
-
+                    <p>{{ err }}</p>
                     <v-btn :loading="loading" type="submit" block class="mt-2 authBtn" text="Submit"></v-btn>
                 </v-form>
             <!-- </v-sheet> -->
@@ -16,7 +17,7 @@
 
 <script>
 
-import {mapActions} from 'vuex';
+import {mapActions, mapGetters} from 'vuex';
 
 export default {
     name: `LoginForm`,
@@ -26,7 +27,7 @@ export default {
             password:"",
         }
     },
-    // computed:mapGetters(['allUser']),
+    computed:mapGetters(['getAllUserDetails']),
     
     methods:{
         ...mapActions(['getUser']),
@@ -39,6 +40,8 @@ export default {
             //     userName,
             //     password
             // );
+            // console.log(this.getAllUserDetails);
+            window.user=this.userName;
             const inputs={
                 userName:this.userName,
                 password:this.password,
@@ -47,6 +50,8 @@ export default {
             this.getUser(
                 inputs
             );
+            this.userName="";
+            this.password="";
         }
 
     },

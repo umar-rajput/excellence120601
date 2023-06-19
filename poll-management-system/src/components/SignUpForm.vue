@@ -1,6 +1,7 @@
 <template>
     <div class="signup-form">
         <div class="signup-form-main">
+            <h3 class="text-center mb-5">Sign Up</h3>
             <v-form validate-on="submit lazy" @submit.prevent="signUp()">
                 <v-text-field v-model="userName" :rules="rules" label="User name"></v-text-field>
                 <v-text-field v-model="password" type="password" :rules="rules" label="Password"></v-text-field>

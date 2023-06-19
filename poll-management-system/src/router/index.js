@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import PollView from '../views/PollView.vue'
+// import store from '@/store'
 
 const routes = [
   {
@@ -19,13 +20,31 @@ const routes = [
   {
     path:'/poll',
     name:'poll',
-    component: PollView
+    component: PollView,
+    meta:{
+      isLoggedIn:true
+    }
   }
 ]
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
+})
+
+router.beforeEach((to)=>{
+  // let token=await store.getters.getAllUserDetails
+  let token=localStorage.getItem("token");
+  // console.log("checking...",token);
+  // console.log(!token);
+  console.log(to.meta.isLoggedIn && token);
+  if(to.meta.isLoggedIn && !token){
+    // console.log(token);
+    return (
+      alert("Please login first"),
+      {name:'home'}
+    )
+  } 
 })
 
 export default router
