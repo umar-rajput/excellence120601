@@ -22,6 +22,7 @@
 import PollVoteCard from '../components/PollVoteCard.vue'
 import PollCard from '../components/PollCard.vue'
 export default {
+    name:'PollView',
     components: {
         PollVoteCard,
         PollCard

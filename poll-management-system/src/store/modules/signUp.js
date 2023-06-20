@@ -1,12 +1,14 @@
 import axios from "axios";
-import router from "../../router";
+// import router from "../../router";
 
 const state={
     login:[],
+    allData:[]
 };
 
 const getters={
     getAllUserDetails: state=>state.login,
+    getAllData:state=>state.allData,
 };
 
 const actions={
@@ -37,18 +39,25 @@ const actions={
             // console.log(token);
             localStorage.setItem("token",token);
             // The user is logged in, so redirect them to the home page.
-            router.push({ path:'/poll' });
+            // router.push({ path:'/poll' });
             // let login=true;
             // console.log(login);
         } else {
             // The user is not logged in, so show an error message.
             console.log("Error logging in: " + res.data.data);
         }
+    },
+
+    async listUsers({commit}){
+        let res=await axios.get(`http://65.108.77.50:3031/list_users`);
+        console.log("Users..",res.data);
+        commit("setListUsers",res.data);
     }
 };
 
 const mutations={
     getUserDetails:(state,login)=>{state.login=login},
+    setListUsers:(state,allData)=>{state.allData=allData}
     // isLogin:
 };
 

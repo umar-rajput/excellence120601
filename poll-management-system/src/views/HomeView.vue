@@ -42,6 +42,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 // @ is an alias to /src
 // import HelloWorld from '@/components/HelloWorld.vue'
 // import Form from '../components/Form.vue'
@@ -61,6 +62,12 @@ export default {
       dialog: false,
       signUp: false,
     }
+  },
+  methods:{
+    ...mapActions(['listUsers']),
+  },
+  mounted(){
+    this.listUsers();
   }
 }
 </script>

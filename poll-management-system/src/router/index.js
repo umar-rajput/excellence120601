@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import PollView from '../views/PollView.vue'
+import AllPollsUserView from '../views/AllPollsUserView'
 // import store from '@/store'
 
 const routes = [
@@ -24,6 +25,14 @@ const routes = [
     meta:{
       isLoggedIn:true
     }
+  },
+  {
+    path:'/all-polls-user',
+    name:'AllPollsUserView',
+    component:AllPollsUserView,
+    meta:{
+      isLoggedIn:true
+    }
   }
 ]
 
@@ -35,9 +44,9 @@ const router = createRouter({
 router.beforeEach((to)=>{
   // let token=await store.getters.getAllUserDetails
   let token=localStorage.getItem("token");
-  // console.log("checking...",token);
+  console.log("token...",token);
   // console.log(!token);
-  console.log(to.meta.isLoggedIn && token);
+  // console.log(to.meta.isLoggedIn && token);
   if(to.meta.isLoggedIn && !token){
     // console.log(token);
     return (

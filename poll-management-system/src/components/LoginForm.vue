@@ -18,19 +18,20 @@
 <script>
 
 import {mapActions, mapGetters} from 'vuex';
-
+import router from "../router";
 export default {
     name: `LoginForm`,
     data() {
         return{
             userName:"",
             password:"",
+            show:true
         }
     },
-    computed:mapGetters(['getAllUserDetails']),
+    computed:mapGetters(['getAllUserDetails','getAllData']),
     
     methods:{
-        ...mapActions(['getUser']),
+        ...mapActions(['getUser','listUsers']),
         login(){
             // console.log(this.userName);
             // console.log(this.password);
@@ -41,7 +42,11 @@ export default {
             //     password
             // );
             // console.log(this.getAllUserDetails);
+            // console.log("checking..",this.$emit('show',this.show));
+            // this.$emit('show-button',this.show)
             window.user=this.userName;
+            console.log("checking....");
+            // console.log(this.getAllData.data[0].role);
             const inputs={
                 userName:this.userName,
                 password:this.password,
@@ -50,6 +55,20 @@ export default {
             this.getUser(
                 inputs
             );
+            for (let i = 0; i < this.getAllData.data.length; i++) {
+                // const element = this.getAllData.data[i];
+                // console.log(element);
+                if(this.userName==this.getAllData.data[i].username && this.password==this.getAllData.data[i].password){
+                    let role=this.getAllData.data[i].role;
+                    // console.log(role);
+                    if(role=="admin"){
+                        router.push({ path:'/poll' });
+                    }else{
+                        router.push({path:'/all-polls-user'})
+                    }
+                }
+            };
+            console.log("checking....");
             this.userName="";
             this.password="";
         }

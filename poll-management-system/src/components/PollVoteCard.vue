@@ -166,12 +166,16 @@ export default {
             console.log(payload);
             this.addPollOption(payload);
             this.clickedId=0;
+            this.option="";
         }
     },
-    // updated(){
-    //     console.log("Update...");
-    //     this.listPolls();
-    // }
+    updated(){
+        console.log("Update...");
+        this.listPolls();
+    },
+    mounted(){
+        this.listPolls();
+    }
 }
 </script>
 

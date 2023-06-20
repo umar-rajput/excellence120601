@@ -35,9 +35,7 @@ export default {
                 role:this.role
             }
             console.log(inputs);
-            this.addUser(
-                inputs
-            );
+            this.addUser(inputs);
         }
 
     },

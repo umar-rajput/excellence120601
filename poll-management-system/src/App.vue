@@ -11,6 +11,12 @@
           <router-link to="/poll" >Polls</router-link>
         </div>
         <div class="col-2">
+          <!-- <v-btn v-if="token!=undefined" class="authBtn text-end" @click="logout">
+            {{buttonValue}}
+          </v-btn>
+          <v-btn v-else class="authBtn text-end" @click="logout">
+            LOg
+          </v-btn> -->
           <v-btn class="authBtn text-end" @click="logout">
             {{buttonValue}}
           </v-btn>
@@ -27,19 +33,35 @@ export default {
   data() {
     return{
       // login:allUser,
-      buttonValue:"Log out"
+      buttonValue:"Log Out",
+      // show:false,
+      // token:localStorage.getItem("token"),
     }
   },
   // computed:mapGetters(['allUser']),
   // updated(){
   //   console.log("...",this.allUser);
   // },
+  // watch:{
+  //   token(){
+  //       console.log("watching...");
+  //       alert('vhhk ');
+  //       // if(newValue !== undefined){
+  //       //   this.buttonValue = "Log Out";
+  //       // }
+  //       // else{
+  //       //   this.buttonValue = "Log In";
+  //       // }
+  //     }
+  // },
   methods:{
     logout(){
       window.user=null;
       localStorage.removeItem("token");
-      this.$router.push({name:'home'})
-    }
+      this.$router.push({name:'home'});
+      // this.show="Login";
+    },
+    
   }
 }
 </script>
