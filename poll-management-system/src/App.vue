@@ -6,20 +6,20 @@
           <!-- <img src="./assets/logo1.png" alt="logo"> -->
         </div>
         <div class="col-9">
-          <router-link to="/">Home</router-link> |
-          <router-link to="/about">About</router-link> |
+          <router-link v-if="token==undefined" to="/">Home</router-link> 
+          <router-link to="/about">About</router-link> 
           <router-link to="/poll" >Polls</router-link>
         </div>
         <div class="col-2">
-          <!-- <v-btn v-if="token!=undefined" class="authBtn text-end" @click="logout">
+          <v-btn v-if="token!=undefined" class="authBtn text-end" @click="logout">
             {{buttonValue}}
           </v-btn>
-          <v-btn v-else class="authBtn text-end" @click="logout">
-            LOg
+          <!-- <v-btn v-else class="authBtn text-end" @click="logout">
+            {{buttonValue}}
           </v-btn> -->
-          <v-btn class="authBtn text-end" @click="logout">
+          <!-- <v-btn class="authBtn text-end" @click="logout">
             {{buttonValue}}
-          </v-btn>
+          </v-btn> -->
         </div>
       </div>
     </nav>
@@ -28,6 +28,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 // import { mapGetters } from 'vuex'
 export default {
   data() {
@@ -36,33 +37,49 @@ export default {
       buttonValue:"Log Out",
       // show:false,
       // token:localStorage.getItem("token"),
+      token:undefined,
     }
   },
-  // computed:mapGetters(['allUser']),
-  // updated(){
-  //   console.log("...",this.allUser);
-  // },
-  // watch:{
-  //   token(){
-  //       console.log("watching...");
-  //       alert('vhhk ');
-  //       // if(newValue !== undefined){
-  //       //   this.buttonValue = "Log Out";
-  //       // }
-  //       // else{
-  //       //   this.buttonValue = "Log In";
-  //       // }
-  //     }
-  // },
+  computed:mapGetters(['getAllUserDetails']),
+  watch:{
+    getAllUserDetails(){
+        console.log("watching...");
+        this.token=this.getAllUserDetails;
+        console.log(this.token);
+        // alert('vhhk ');
+        // if(newValue !== undefined){
+        //   this.buttonValue = "Log Out";
+        // }
+        // else{
+        //   this.buttonValue = "Log In";
+        // }
+      }
+  },
   methods:{
     logout(){
       window.user=null;
       localStorage.removeItem("token");
       this.$router.push({name:'home'});
+      this.token=undefined;
       // this.show="Login";
     },
+    // submit(){
+    //   this.token=localStorage.getItem("token");
+    //   console.log(this.token);
+    // }
     
-  }
+  },
+  // created(){
+  //   // console.log("value updated");
+  //   console.log("...",this.getAllUserDetails);
+  // }
+  // updated(){
+  //   // this.token=localStorage.getItem("token");
+  //   // console.log(this.token);
+  //   // this.$root.$on("token",(token)=>{
+  //   //   console.log("sdvsfsd",token);
+  //   // })
+  // },
 }
 </script>
 

@@ -6,7 +6,7 @@
                 <v-form validate-on="submit lazy" @submit.prevent="login()">
                     <v-text-field v-model="userName" :rules="rules" label="User name"></v-text-field>
                     <v-text-field v-model="password" type="password" :rules="rules" label="Password"></v-text-field>
-                    <p>{{ err }}</p>
+                    <p class="text-danger text-center">{{ err }}</p>
                     <v-btn :loading="loading" type="submit" block class="mt-2 authBtn" text="Submit"></v-btn>
                 </v-form>
             <!-- </v-sheet> -->
@@ -25,14 +25,15 @@ export default {
         return{
             userName:"",
             password:"",
-            show:true
+            show:true,
+            err:"",
         }
     },
     computed:mapGetters(['getAllUserDetails','getAllData']),
     
     methods:{
         ...mapActions(['getUser','listUsers']),
-        login(){
+        async login(){
             // console.log(this.userName);
             // console.log(this.password);
             // this.userName=userName;
@@ -52,7 +53,7 @@ export default {
                 password:this.password,
             }
             console.log(inputs);
-            this.getUser(
+            await this.getUser(
                 inputs
             );
             for (let i = 0; i < this.getAllData.data.length; i++) {
@@ -60,14 +61,18 @@ export default {
                 // console.log(element);
                 if(this.userName==this.getAllData.data[i].username && this.password==this.getAllData.data[i].password){
                     let role=this.getAllData.data[i].role;
-                    // console.log(role);
+                    console.log(role);
                     if(role=="admin"){
                         router.push({ path:'/poll' });
-                    }else{
+                    }else if(role=="user"){
                         router.push({path:'/all-polls-user'})
+                    }else{
+                        this.err="Wrong username or password"
                     }
                 }
-            };
+            }
+            // console.log("fire..",this.$root.$emit("token"));
+            // this.$emit("token")
             console.log("checking....");
             this.userName="";
             this.password="";

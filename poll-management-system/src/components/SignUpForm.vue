@@ -36,6 +36,7 @@ export default {
             }
             console.log(inputs);
             this.addUser(inputs);
+            alert("Sign Up Successfull Please Login");
         }
 
     },
