@@ -44,13 +44,13 @@ export default {
     },
     methods:{
         add(){
-            if(this.count<4){
+            // if(this.count<4){
                 this.options.push(this.option);
                 this.option="";
                 this.count++;
-            }else{
-                this.err="You can add only 4 option"
-            }
+            // }else{
+            //     this.err="You can add only 4 option"
+            // }
         },
         ...mapActions(['addPoll','listPolls']),
         submit(){

@@ -62,6 +62,7 @@ export default {
                 if(this.userName==this.getAllData.data[i].username && this.password==this.getAllData.data[i].password){
                     let role=this.getAllData.data[i].role;
                     console.log(role);
+                    localStorage.setItem("role",role);
                     if(role=="admin"){
                         router.push({ path:'/poll' });
                     }else if(role=="user"){

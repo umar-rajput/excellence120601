@@ -11,10 +11,24 @@ const getters={
 const actions={
     async addPoll({commit},poll){
         // console.log("Checking..",poll.question,poll.options[0]);
-        let res=await axios.post(`http://65.108.77.50:3031/add_poll?title=${poll.question}&options=${poll.options[0]}____${poll.options[1]}____${poll.options[2]}____${poll.options[3]}`);
+        // let ptr="____";
+        let url=`http://65.108.77.50:3031/add_poll?title=${poll.question}&options=`;
+        poll.options.forEach((element,index) => {
+            // console.log(element,index);
+            if (index==0) {
+                url=url+`${element}`
+                // console.log(url);
+            }else{
+                url=url+`____${element}`
+                // console.log(url);
+            }            
+        });
+        let res=await axios.post(url);
+        // console.log(`http://65.108.77.50:3031/add_poll?title=${poll.question}&options=${poll.options+ptr}`);
+        // let res=await axios.post(`http://65.108.77.50:3031/add_poll?title=${poll.question}&options=${poll.options[0]}____${poll.options[1]}____${poll.options[2]}____${poll.options[3]}`);
         // console.log("result",res);
         console.log("result add",res.data);
-        commit("setPoll",res.data);
+        commit("setPoll");
     },
     
     async listPolls({commit}){

@@ -8,7 +8,8 @@
         <div class="col-9">
           <router-link v-if="token==undefined" to="/">Home</router-link> 
           <router-link to="/about">About</router-link> 
-          <router-link to="/poll" >Polls</router-link>
+          <router-link v-if="role==user" to="/poll" >Polls</router-link>
+          <router-link v-else to="/all-polls-user" >Polls</router-link>
         </div>
         <div class="col-2">
           <v-btn v-if="token!=undefined" class="authBtn text-end" @click="logout">
@@ -38,6 +39,7 @@ export default {
       // show:false,
       // token:localStorage.getItem("token"),
       token:undefined,
+      role:localStorage.getItem("role"),
     }
   },
   computed:mapGetters(['getAllUserDetails']),
@@ -59,6 +61,7 @@ export default {
     logout(){
       window.user=null;
       localStorage.removeItem("token");
+      localStorage.removeItem("role");
       this.$router.push({name:'home'});
       this.token=undefined;
       // this.show="Login";
